@@ -1,9 +1,16 @@
 h1{
     text-align: center;
 }
+p{
+    text-align: center;
+    text-decoration: dotted;
+    font-size:larger;
+    font-family: Arial, Helvetica, sans-serif;
+    color: red;
+}
 table{
     width: 40%;
-    margin: 100px auto;
+    margin: 60px auto;
 }
 
 .btn {
@@ -12,4 +19,8 @@ table{
     font-size: 4em;
     background-color: chocolate;
     color: #fff;
+}
+.playagain{
+    background-color: aqua;
+    text-align: center;
 }
