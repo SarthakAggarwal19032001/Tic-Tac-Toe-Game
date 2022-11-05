@@ -85,13 +85,15 @@ function userMove() {
     }
 }
 
+
 function cpuMove() {
     for(let i = 0; i < winningCombinations.length; i++) {
-        if(winningCombinations[i][0] == winningCombinations[i][1] && btns[winningCombinations[i][2]].innerHTML==""){
+        if((winningCombinations[i][0] == winningCombinations[i][1]) && (winningCombinations[i][2]!="X" && winningCombinations[i][2]!="00")){
+            console.log("c-1");
             btns[winningCombinations[i][2]].innerHTML = cpuchoice;
             btns[winningCombinations[i][2]].setAttribute("disabled",true);
-            winningCombinations[i][2]=cpuchoice;
-            checkWinner(cpuchoice);
+            setpos(winningCombinations[i][2],cpuchoice);
+            checkWinner("Y");
             if(win){
                 let btnss = document.querySelectorAll(".btn");// will create array of buttons btns
                 for(let i = 0; i < btnss.length; i++) {
@@ -101,11 +103,12 @@ function cpuMove() {
             }
             return;
         }
-        else if(winningCombinations[i][0] == winningCombinations[i][2] && btns[winningCombinations[i][1]].innerHTML==""){
+        else if((winningCombinations[i][0] == winningCombinations[i][2]) && (winningCombinations[i][1]!="X" && winningCombinations[i][1]!="00")){
+            console.log("c-2");
             btns[winningCombinations[i][1]].innerHTML = cpuchoice;
             btns[winningCombinations[i][1]].setAttribute("disabled",true);
-            winningCombinations[i][1]=cpuchoice;
-            checkWinner(cpuchoice);
+            setpos(winningCombinations[i][1],cpuchoice);
+            checkWinner("Y");
             if(win){
                 let btnss = document.querySelectorAll(".btn");// will create array of buttons btns
                 for(let i = 0; i < btnss.length; i++) {
@@ -116,11 +119,13 @@ function cpuMove() {
             return;
         }
 
-        else if(winningCombinations[i][1] == winningCombinations[i][2] && btns[winningCombinations[i][0]].innerHTML==""){
+        else if((winningCombinations[i][1] == winningCombinations[i][2]) && (winningCombinations[i][0]!="X" && winningCombinations[i][0]!="00")){
+            console.log("c-3");
             btns[winningCombinations[i][0]].innerHTML = cpuchoice;
             btns[winningCombinations[i][0]].setAttribute("disabled",true);
-            winningCombinations[i][0]=cpuchoice;
-            checkWinner(cpuchoice);
+            setpos(winningCombinations[i][0],cpuchoice);
+            //winningCombinations[i][0]="Y";
+            checkWinner("Y");
             if(win){
                 let btnss = document.querySelectorAll(".btn");// will create array of buttons btns
                 for(let i = 0; i < btnss.length; i++) {
@@ -135,10 +140,12 @@ function cpuMove() {
         for(let i = 0; i < winningCombinations.length; i++){
             console.log("loop 2");
             for(let j=0;j<3;j++){
-            if(winningCombinations[i][j]!="X" && winningCombinations[i][j]!="0"){
+            if(winningCombinations[i][j]!="X" && winningCombinations[i][j]!="00"){
+                console.log(i+""+j);
                 btns[winningCombinations[i][j]].innerHTML=cpuchoice;
                 btns[winningCombinations[i][j]].setAttribute("disabled",true);
-                winningCombinations[i][j]=cpuchoice;
+                setpos(winningCombinations[i][j],cpuchoice);
+                //winningCombinations[i][j]="Y";
                 return;
             }
         }
@@ -148,8 +155,13 @@ function cpuMove() {
 function setpos(pos,choice){
     for(let i = 0; i < winningCombinations.length; i++) {
         for(let j = 0; j < 3; j++) {
-            if(pos == winningCombinations[i][j]) {
+            if(winningCombinations[i][j]==pos) {
+                if(choice=="0"){
+                    winningCombinations[i][j]="00"
+                }
+                else{
                 winningCombinations[i][j] = choice;
+                }
                 break;
             }
         }
@@ -179,10 +191,10 @@ function checkWinner(choice) {
             break;
         }
     }
+}
 
-    function PlayAgain(){
-        if(confirm("Do You Want to Play Again")==true){
-            window.location.href="index.html"
-        }
+function PlayAgain(){
+    if(confirm("Do You Want to Play Again")==true){
+        window.location.href="index.html"
     }
 }
