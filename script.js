@@ -88,12 +88,12 @@ function userMove() {
 
 function cpuMove() {
     for(let i = 0; i < winningCombinations.length; i++) {
-        if((winningCombinations[i][0] == winningCombinations[i][1]) && (winningCombinations[i][2]!="X" && winningCombinations[i][2]!="00")){
+        if((winningCombinations[i][0] == winningCombinations[i][1]) && (winningCombinations[i][2]!="X" && winningCombinations[i][2]!="Y")){
             console.log("c-1");
             btns[winningCombinations[i][2]].innerHTML = cpuchoice;
             btns[winningCombinations[i][2]].setAttribute("disabled",true);
             setpos(winningCombinations[i][2],cpuchoice);
-            checkWinner("Y");
+            checkWinner(cpuchoice);
             if(win){
                 let btnss = document.querySelectorAll(".btn");// will create array of buttons btns
                 for(let i = 0; i < btnss.length; i++) {
@@ -103,12 +103,12 @@ function cpuMove() {
             }
             return;
         }
-        else if((winningCombinations[i][0] == winningCombinations[i][2]) && (winningCombinations[i][1]!="X" && winningCombinations[i][1]!="00")){
+        else if((winningCombinations[i][0] == winningCombinations[i][2]) && (winningCombinations[i][1]!="X" && winningCombinations[i][1]!="Y")){
             console.log("c-2");
             btns[winningCombinations[i][1]].innerHTML = cpuchoice;
             btns[winningCombinations[i][1]].setAttribute("disabled",true);
             setpos(winningCombinations[i][1],cpuchoice);
-            checkWinner("Y");
+            checkWinner(cpuchoice);
             if(win){
                 let btnss = document.querySelectorAll(".btn");// will create array of buttons btns
                 for(let i = 0; i < btnss.length; i++) {
@@ -119,13 +119,13 @@ function cpuMove() {
             return;
         }
 
-        else if((winningCombinations[i][1] == winningCombinations[i][2]) && (winningCombinations[i][0]!="X" && winningCombinations[i][0]!="00")){
+        else if((winningCombinations[i][1] == winningCombinations[i][2]) && (winningCombinations[i][0]!="X" && winningCombinations[i][0]!="Y")){
             console.log("c-3");
             btns[winningCombinations[i][0]].innerHTML = cpuchoice;
             btns[winningCombinations[i][0]].setAttribute("disabled",true);
             setpos(winningCombinations[i][0],cpuchoice);
             //winningCombinations[i][0]="Y";
-            checkWinner("Y");
+            checkWinner(cpuchoice);
             if(win){
                 let btnss = document.querySelectorAll(".btn");// will create array of buttons btns
                 for(let i = 0; i < btnss.length; i++) {
@@ -140,7 +140,7 @@ function cpuMove() {
         for(let i = 0; i < winningCombinations.length; i++){
             console.log("loop 2");
             for(let j=0;j<3;j++){
-            if(winningCombinations[i][j]!="X" && winningCombinations[i][j]!="00"){
+            if(winningCombinations[i][j]!="X" && winningCombinations[i][j]!="Y"){
                 console.log(i+""+j);
                 btns[winningCombinations[i][j]].innerHTML=cpuchoice;
                 btns[winningCombinations[i][j]].setAttribute("disabled",true);
@@ -157,7 +157,7 @@ function setpos(pos,choice){
         for(let j = 0; j < 3; j++) {
             if(winningCombinations[i][j]==pos) {
                 if(choice=="0"){
-                    winningCombinations[i][j]="00"
+                    winningCombinations[i][j]="Y"
                 }
                 else{
                 winningCombinations[i][j] = choice;
@@ -169,16 +169,20 @@ function setpos(pos,choice){
 }
 
 function checkWinner(choice) {
+    // if(choice=="0"){
+    //     choice="Y"
+    // }
     for(let i = 0; i < winningCombinations.length; i++) {
-        if(winningCombinations[i][0] == choice && winningCombinations[i][1]== choice &&  winningCombinations[i][2] == choice) {
+        if((winningCombinations[i][0] == winningCombinations[i][1]) && ( winningCombinations[i][1]== winningCombinations[i][2])) {
+            console.log(i);
             var x=document.createElement("P");
             if(choice==userchoice){
             x.innerHTML="Congratulations You Won !"
             document.body.appendChild(x);
             console.log(choice + " wins...");
             }
-            else{
-                x.innerHTML="You Lost Better Luck Next Time !"
+            else if(choice==cpuchoice){
+            x.innerHTML="You Lost Better Luck Next Time !"
             document.body.appendChild(x);
             console.log(choice + " wins...");
             }
